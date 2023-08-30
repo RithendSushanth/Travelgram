@@ -16,9 +16,8 @@ import useStyles from './styles';
 import Input from './input';
 // import cors from 'cors';
 
-// // 3:13:30 frontend (Pending)
-// // 4:23:14 backend
-// video 3:22:53 reason google auth is not working  go to chrome settings --> advanced --> clear browsing data --> cached images and files
+
+//reason google auth is not working  go to chrome settings --> advanced --> clear browsing data --> cached images and files
 
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
