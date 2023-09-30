@@ -7,6 +7,9 @@ import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
+import { FaFacebook, FaTwitter } from 'react-icons/fa';
+import { FaWhatsapp } from 'react-icons/fa';
+
 
 import { likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles';
@@ -35,7 +38,7 @@ const Post = ({ post, setCurrentId }) => {
     if (likes.length > 0) {
       return likes.find((like) => like === userId)
         ? (
-          <><ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}` }</>
+          <><ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}</>
         ) : (
           <><ThumbUpAltOutlined fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</>
         );
@@ -49,6 +52,25 @@ const Post = ({ post, setCurrentId }) => {
 
     history.push(`/posts/${post._id}`);
   };
+
+  const shareOnFacebook = (post) => {
+    const url = encodeURIComponent(`https://yourwebsite.com/posts/${post._id}`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+};
+
+const shareOnTwitter = (post) => {
+    const url = encodeURIComponent(`https://yourwebsite.com/posts/${post._id}`);
+    const text = encodeURIComponent(post.title);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+};
+
+const shareOnWhatsApp = (post) => {
+  const text = encodeURIComponent(`Check out this post: ${post.title} - https://yourwebsite.com/posts/${post._id}`);
+  const whatsappUrl = `https://web.whatsapp.com/send?text=${text}`;
+  window.open(whatsappUrl, '_blank');
+};
+
+
 
   return (
     <Card className={classes.card} raised elevation={6}>
@@ -64,18 +86,18 @@ const Post = ({ post, setCurrentId }) => {
           <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
         </div>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-        <div className={classes.overlay2} name="edit">
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentId(post._id);
-            }}
-            style={{ color: 'white' }}
-            size="small"
-          >
-            <MoreHorizIcon fontSize="default" />
-          </Button>
-        </div>
+          <div className={classes.overlay2} name="edit">
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentId(post._id);
+              }}
+              style={{ color: 'white' }}
+              size="small"
+            >
+              <MoreHorizIcon fontSize="default" />
+            </Button>
+          </div>
         )}
         <div className={classes.details}>
           <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
@@ -89,11 +111,21 @@ const Post = ({ post, setCurrentId }) => {
         <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
           <Likes />
         </Button>
-        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
-          </Button>
-        )}
+        <Button size="small" color="primary" onClick={() => shareOnFacebook(post)}>
+          <FaFacebook />
+        </Button>
+        {/* Add Twitter Share */}
+        <Button size="small" color="primary" onClick={() => shareOnTwitter(post)}>
+          <FaTwitter />
+        </Button>
+        <Button size="small" color="primary" onClick={() => shareOnWhatsApp(post)}>
+        <FaWhatsapp />
+        </Button>
+          {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+            <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+              <DeleteIcon fontSize="small" /> &nbsp; Delete
+            </Button>
+          )}
       </CardActions>
     </Card>
   );

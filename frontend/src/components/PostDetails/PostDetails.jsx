@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
+import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-import { getPost, getPostsBySearch } from '../../actions/posts';
+import { getPost, getPostsBySearch, deletePost } from '../../actions/posts';
 import CommentSection from './CommentSection';
 import useStyles from './styles';
 
@@ -51,14 +52,27 @@ const Post = () => {
 
   const handleLike = async () => {
     dispatch(likePost(post._id));
-    
+
     if (hasLikedPost) {
       setLikes(likes.filter(id => id !== userId));
     } else {
       setLikes([...likes, userId]);
     }
   };
-  
+
+  const Likes = () => {
+    if (likes.length > 0) {
+      return likes.find((like) => like === userId)
+        ? (
+          <><ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}</>
+        ) : (
+          <><ThumbUpAltOutlined fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</>
+        );
+    }
+
+    return <><ThumbUpAltOutlined fontSize="small" />&nbsp;</>;
+  };
+
 
 
   return (
@@ -78,7 +92,14 @@ const Post = () => {
             <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
               {` ${post.name}`}
             </Link>
-            <Button color="primary" onClick={handleLike}>Like</Button> {/* Add Like Button */}
+            <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
+              <Likes />
+            </Button>
+            {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+            <DeleteIcon fontSize="small" /> &nbsp; 
+          </Button>
+        )}
           </Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
 

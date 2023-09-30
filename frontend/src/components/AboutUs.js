@@ -3,22 +3,26 @@
 import React from 'react';
 import { Typography, makeStyles, Container } from '@material-ui/core';
 
+
 const useStyles = makeStyles((theme) => ({
     container: {
-        marginTop: theme.spacing(5),
-        marginBottom: theme.spacing(5),
-        padding: theme.spacing(3),
-        backgroundColor: '#f5f5f5',
-        borderRadius: theme.spacing(1),
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
+      padding: theme.spacing(3),
+      backgroundColor: theme.palette.background.default,
+      borderRadius: theme.spacing(1),
+      color: theme.palette.text.primary, // Set the text color for dark mode
     },
     title: {
-        marginBottom: theme.spacing(3),
-        fontWeight: 'bold',
+      marginBottom: theme.spacing(3),
+      fontWeight: 'bold',
+      color: theme.palette.text.primary, // Set the text color for dark mode
     },
     content: {
-        lineHeight: '2.5',
+      lineHeight: '2.5',
+      color: theme.palette.text.primary, // Set the text color for dark mode
     },
-}));
+  }));
 
 const AboutUs = () => {
     const classes = useStyles();
