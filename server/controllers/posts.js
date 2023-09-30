@@ -124,4 +124,51 @@ export const commentPost = async (req, res) => {
     res.json(updatedPost);
 };
 
+export const getPostsByUser = async (req, res) => {
+    const { name } = req.query;
+    
+    try {
+        const posts = await PostMessage.find({ name });
+        res.json({ data: posts });
+    } catch (error) {    
+        res.status(404).json({ message: error.message });
+    }
+};
+
+export const getPostsByCreator = async (req, res) => {
+    const { name } = req.query;
+
+    try {
+        const posts = await PostMessage.find({ name });
+
+        res.json({ data: posts });
+    } catch (error) {    
+        res.status(404).json({ message: error.message });
+    }
+};
+
+export const getPostStatistics = async (req, res) => {
+    const { id } = req.params; // Make sure it's 'id', not 'postId'
+  
+    try {
+      const post = await PostMessage.findById(id);
+  
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+  
+      const statistics = {
+        likes: post.likes.length,
+        comments: post.comments.length,
+        // Add any additional statistics you need
+      };
+  
+      res.status(200).json(statistics);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
+  
+  
+
 export default router;

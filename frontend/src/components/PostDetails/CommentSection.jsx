@@ -14,15 +14,6 @@ const CommentSection = ({ post }) => {
     const dispatch = useDispatch();
     const commentsRef = useRef();
 
-    // const handleComment = async () => {
-    //     const newComment = `${user?.result?.name}: ${comment}`;
-    //     const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
-    
-    //     setComment('');
-    //     setComments(newComments);
-    
-    //     commentsRef.current.scrollIntoView({ behavior: 'smooth' });
-    //   };
     const handleComment = async () => {
         // Create a new comment string
         const newComment = `${user?.result?.name}: ${comment}`;
@@ -55,7 +46,7 @@ const CommentSection = ({ post }) => {
                     <div ref={commentsRef}/>
                 </div>
                 {user?.result?.name && (
-                    <div style={{ width: "70%" }}>
+                    <div style={{ width: "90%" }}>
                         <Typography gutterBottom variant="h6">Write a Comment</Typography>
                         <TextField
                             fullWidth

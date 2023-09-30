@@ -72,4 +72,13 @@ export default makeStyles((theme) => ({
       transform: 'scale(1.1)',
     },
   },
+  goToComponent: {
+    margin: '0 5px', // Reduce the margin
+  },
+  darkModeToggle: {
+    marginLeft: 'auto',
+  },  
+  whiteText: {
+    color: '#fff', // Set text color to white
+  },
 }));

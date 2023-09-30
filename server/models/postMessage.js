@@ -17,6 +17,18 @@ const postSchema = mongoose.Schema({
         type: Date,
         default: new Date(),
     },
+    likesCount: {
+        type: Number,
+        default: 0
+    },
+    commentsCount: {
+        type: Number,
+        default: 0
+    },
+    viewsCount: {
+        type: Number,
+        default: 0
+    },
 })
 
 var PostMessage = mongoose.model('PostMessage', postSchema);
