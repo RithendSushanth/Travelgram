@@ -75,9 +75,7 @@ export default makeStyles((theme) => ({
   goToComponent: {
     margin: '0 5px', // Reduce the margin
   },
-  darkModeToggle: {
-    marginLeft: 'auto',
-  },  
+    
   whiteText: {
     color: '#fff', // Set text color to white
   },
