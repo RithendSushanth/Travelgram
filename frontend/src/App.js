@@ -57,17 +57,17 @@ const App = () => {
     setIsLoading(true);
 
     getPlaceData(type)
-      .then((response) => {
-        console.log(response.data); // Log the response data
-        setPlaces(response.data); // Update state with the response data
-        setFilteredPlaces([])
-      })
-      .catch((error) => {
-        console.error(error);
-      }).finally(() => {
-        setIsLoading(false);
-      })
-  }, [type]);
+    .then((response) => {
+      console.log(response.data); // Log the response data
+      setPlaces(response.data); // Update state with the response data
+      setFilteredPlaces([])
+    })
+    .catch((error) => {
+      console.error(error);
+    }).finally(() => {
+      setIsLoading(false);
+    })
+}, [type]);
 
   const handlePlaceChanged = (placesData) => {
     setPlaces(placesData); // Update state with the response data

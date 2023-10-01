@@ -35,16 +35,6 @@ const Header = ({ onPlaceChanged, onLoad }) => {
           <Typography variant="h6" className={classes.title}>
             Explore new places
           </Typography>
-
-          <InputBase
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={handleSearch}
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-          />
           <IconButton className={classes.searchIcon}>
             <SearchIcon />
           </IconButton>

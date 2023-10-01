@@ -89,8 +89,8 @@ export const getPlaceData = async (type) => {
       lang: 'en_US'
     },
     headers: {
-      'X-RapidAPI-Key': 'e4db2f1325msh82cc5df33bc26aep107c92jsn19196e9e9a45',
-      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+      // 'X-RapidAPI-Key': 'd350f5f927mshc73843f22dc721ap1e388bjsn191177d349c8',
+      // 'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
     }
   };
 
@@ -101,4 +101,5 @@ export const getPlaceData = async (type) => {
     console.error(error);
     throw error;
   }
+  
 };
